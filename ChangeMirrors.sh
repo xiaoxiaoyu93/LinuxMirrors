@@ -296,6 +296,7 @@ FAIL="\033[1;31m✘${PLAIN}"
 TIP="\033[1;44m TIP ${PLAIN}"
 WORKING="\033[1;36m◉${PLAIN}"
 SCRIPT_FILE_NAME="main.sh"
+SCRIPT_FALLBACK_URL="https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh"
 SCRIPT_EXEC_COMMAND=""
 SCRIPT_INFO_ADDRESS=""
 
@@ -325,11 +326,11 @@ function init_script_runtime_address() {
         SCRIPT_EXEC_COMMAND="bash $(printf '%q' "${local_script_path}")"
         SCRIPT_INFO_ADDRESS="${local_script_path}"
     elif [[ "${script_url}" =~ ^https?:// ]]; then
-        SCRIPT_EXEC_COMMAND="bash <(curl -sSL ${script_url})"
+        SCRIPT_EXEC_COMMAND="bash <(curl -sSL $(printf '%q' "${script_url}"))"
         SCRIPT_INFO_ADDRESS="${script_url%/*}"
     else
-        SCRIPT_EXEC_COMMAND="bash <(curl -sSL https://SCRIPT_URL_NOT_DETECTED)"
-        SCRIPT_INFO_ADDRESS="Unable to detect script source; set SCRIPT_URL or LINUXMIRRORS_SCRIPT_URL"
+        SCRIPT_EXEC_COMMAND="bash <(curl -sSL ${SCRIPT_FALLBACK_URL})"
+        SCRIPT_INFO_ADDRESS="${SCRIPT_FALLBACK_URL%/*}"
     fi
 }
 
@@ -879,10 +880,17 @@ function permission_judgment() {
     if [ $UID -ne 0 ]; then
         local change_cmd="su root"
         if command_exists sudo; then
-            if [ -f "$0" ]; then
-                exec sudo bash "$0" "${SCRIPT_ARGS[@]}"
+            if sudo -n true >/dev/null 2>&1 || sudo -v; then
+                if [ -f "$0" ]; then
+                    exec sudo bash "$0" "${SCRIPT_ARGS[@]}"
+                fi
+                exec sudo bash -c "${SCRIPT_EXEC_COMMAND}"
             fi
-            change_cmd="sudo ${SCRIPT_EXEC_COMMAND}"
+            if [ -f "$0" ]; then
+                change_cmd="sudo bash $(printf '%q' "$0")"
+            else
+                change_cmd="sudo ${SCRIPT_EXEC_COMMAND}"
+            fi
         fi
         output_error "$(msg "error.needRoot" "${BLUE}${change_cmd}${PLAIN}")"
     fi
