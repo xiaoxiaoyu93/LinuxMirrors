@@ -787,6 +787,9 @@ function command_exists() {
 
 function permission_judgment() {
     if [ $UID -ne 0 ]; then
+        if command_exists sudo && [ -f "$0" ]; then
+            exec sudo bash "$0" "${SCRIPT_ARGS[@]}"
+        fi
         local change_cmd="su root"
         if command_exists sudo; then
             change_cmd="sudo -i"
@@ -8759,6 +8762,7 @@ Issue Report {}'
 
 ##############################################################################
 
+SCRIPT_ARGS=("$@")
 init_msg_pack
 handle_command_options "$@"
 main
