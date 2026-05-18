@@ -1847,8 +1847,9 @@ function add_user_to_docker_group() {
         echo ''
         interactive_select_boolean "${BOLD}${ask_text}${PLAIN}"
         if [[ "${_SELECT_RESULT}" == "true" ]]; then
-            usermod -aG docker "${SUDO_USER}"
-            echo -e "\n$SUCCESS $(msg "info.dockerGroup.added" "${BLUE}${SUDO_USER}${PLAIN}")"
+            if usermod -aG docker "${SUDO_USER}"; then
+                echo -e "\n$SUCCESS $(msg "info.dockerGroup.added" "${BLUE}${SUDO_USER}${PLAIN}")"
+            fi
         fi
     else
         local CHOICE="$(echo -e "\n${BOLD}└─ ${ask_text} [Y/n] ${PLAIN}")"
@@ -1856,8 +1857,9 @@ function add_user_to_docker_group() {
         [[ -z "${INPUT}" ]] && INPUT=Y
         case "${INPUT}" in
         [Yy] | [Yy][Ee][Ss])
-            usermod -aG docker "${SUDO_USER}"
-            echo -e "\n$SUCCESS $(msg "info.dockerGroup.added" "${BLUE}${SUDO_USER}${PLAIN}")"
+            if usermod -aG docker "${SUDO_USER}"; then
+                echo -e "\n$SUCCESS $(msg "info.dockerGroup.added" "${BLUE}${SUDO_USER}${PLAIN}")"
+            fi
             ;;
         [Nn] | [Nn][Oo]) ;;
         *)
