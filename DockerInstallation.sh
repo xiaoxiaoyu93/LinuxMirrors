@@ -1187,7 +1187,7 @@ function close_firewall_service() {
     if ! command_exists systemctl; then
         return
     fi
-    if [[ "$(systemctl is-active firewalld)" == "active" ]]; then
+    if [[ "$(systemctl is-active firewalld 2>/dev/null)" == "active" ]]; then
         if [[ "${CLOSE_FIREWALL}" == "true" ]]; then
             local SelinuxConfig=/etc/selinux/config
             systemctl disable --now firewalld >/dev/null 2>&1
