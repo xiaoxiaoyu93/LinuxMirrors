@@ -3,7 +3,6 @@ MESSAGE_CONTENTS=(
     ['start.runtimeEnv']='Runtime Env'
     ['start.dateTime']='System Time'
     ['end.moreInfo']='Script execution completed, visit our website for more tutorials'
-    ['end.sponsorAds']='[Sponsor Ads]'
     ['dryrun.yourOptions']='Your options:'
     ['error.cmd.options.needConfirm']='Please confirm and re-enter'
     ['error.cmd.options.needSpecify']='Please specify {} after this option'

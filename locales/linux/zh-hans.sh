@@ -3,7 +3,6 @@ MESSAGE_CONTENTS=(
     ['start.runtimeEnv']='运行环境'
     ['start.dateTime']='系统时间'
     ['end.moreInfo']='脚本运行完毕，更多使用教程详见官网'
-    ['end.sponsorAds']='【赞助商广告】'
     ['dryrun.yourOptions']='你的选项：'
     ['error.cmd.options.needConfirm']='请确认后重新输入'
     ['error.cmd.options.needSpecify']='请在该选项后指定{}'
