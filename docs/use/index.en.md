@@ -13,13 +13,13 @@ hide:
         === ":linuxmirrors: Official Site (Recommended)"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/ChangeMirrors.sh) --en
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en
             ```
 
         === ":simple-gitee: Gitee"
@@ -56,13 +56,13 @@ hide:
         === ":linuxmirrors: Official Site (Recommended)"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en --abroad
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en --abroad
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/ChangeMirrors.sh) --en --abroad
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en --abroad
             ```
 
         === ":simple-gitee: Gitee"
@@ -99,13 +99,13 @@ hide:
         === ":linuxmirrors: Official Site (Recommended)"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en --edu
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en --edu
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/ChangeMirrors.sh) --en --edu
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en --edu
             ```
 
         === ":simple-gitee: Gitee"
@@ -241,14 +241,14 @@ hide:
 
                 Works for most systems (except `Alpine Linux`). If `python3` is missing, try `python`.
                 ``` bash
-                python3 -c "import urllib.request; urllib.request.urlretrieve('https://linuxmirrors.cn/main.sh', 'main.sh')"
+                python3 -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh', 'main.sh')"
                 ```
 
             === "Download with wget"
 
                 Usually, systems without `curl` also lack `wget`, so this may not work.
                 ``` bash
-                wget https://linuxmirrors.cn/main.sh
+                wget https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh
                 ```
 
             === "Download with browser"
@@ -495,7 +495,7 @@ hide:
 
 <!-- termynal -->
 ```
-$ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en --help 
+$ bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en --help 
 
 Command options(name/meaning/value):
 
@@ -571,7 +571,7 @@ Below are some advanced usage examples
 - ### Specify mirror address
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en --source mirror.example.com
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en --source mirror.example.com
     ```
 
 - ### Specify mirror repository directory
@@ -589,7 +589,7 @@ Below are some advanced usage examples
     Example:
 
     ``` { .bash title="Use Aliyun mirror for Rocky Linux" }
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en \
       --source mirrors.aliyun.com \
       --branch rockylinux
     ```
@@ -607,7 +607,7 @@ Below are some advanced usage examples
     Sometimes your desired mirror does not have EPEL. You can skip EPEL during the first run and then run:
 
     ``` bash
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en --only-epel
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en --only-epel
     ```
 
     For EPEL 7 (EOL), use the [`archive`](https://dl.fedoraproject.org/pub/archive/epel) repo. For overseas networks, use `--use-official-source-epel true` to use the official repo.
@@ -617,7 +617,7 @@ Below are some advanced usage examples
     If you accidentally deleted the backup of the official mirror, use this command to restore. This skips mirror selection.
 
     ``` bash
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en --use-official-source true
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en --use-official-source true
     ```
     > Some systems (e.g., `Arch Linux`) have no official mirror, so Aliyun will be used as a fallback.
 
@@ -650,7 +650,7 @@ Below are some advanced usage examples
         For maximum security, use the official repo due to mirror sync delays.
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en \
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en \
           --source-security security.debian.org \
           --branch-security debian-security
         ```
@@ -664,7 +664,7 @@ Below are some advanced usage examples
             - Change version code
 
                 ``` bash
-                bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en \
+                bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en \
                   --codename trixie \
                   --upgrade-software false
                 ```
@@ -688,13 +688,13 @@ Below are some advanced usage examples
                 # Clear the original software sources (If there is any non-system software source content, please back it up manually first)
                 sed -i '1,$d' /etc/apt/sources.list
                 # Rerun the mirror switching script
-                bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en
+                bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en
                 ```
 
         === "Switch GNU/Linux Debian to testing branch"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en \
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en \
               --codename testing \
               --upgrade-software false
             ```
@@ -710,7 +710,7 @@ Below are some advanced usage examples
         See the official [Wiki](https://documentation.ubuntu.com/project/release-team/list-of-releases/) for version support and check each mirror for `Ubuntu Old Releases` support.
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en \
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en \
           --source mirrors.ustc.edu.cn \
           --branch ubuntu-old-releases
         ```
@@ -731,7 +731,7 @@ Below are some advanced usage examples
     - #### Specify Language
 
         ``` { .bash .no-copy }
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) --lang xxx
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --lang xxx
         ```
 
         | Type | Value |
@@ -743,14 +743,14 @@ Below are some advanced usage examples
         It can also be used directly as a command option
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant
         ```
         > `--en` `--en-us` `--zh` `--zh-cn` `--zh-hans` `--zh-hant`
 
     - #### Select through interaction
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) --lang auto
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --lang auto
         ```
 
 - ### Unattended (Automation)
@@ -758,7 +758,7 @@ Below are some advanced usage examples
     To run without interaction, use at least the following options. Recommended for experienced users.
 
     ``` { .bash .no-copy title="Example Command" }
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en \
       --source mirror.example.com \
       --protocol http \
       --use-intranet-source false \
@@ -775,7 +775,7 @@ Below are some advanced usage examples
     This feature is introduced to facilitate the use of developers and operation and maintenance personnel. After it is enabled, the script content output will be simplified. It is recommended to use it with other command options without interaction.
 
     ``` bash
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en --pure-mode
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en --pure-mode
     ```
 
     !!! tip "Scrolling command logs may have unpredictable display issues, but no problems have been found so far."

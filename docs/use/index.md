@@ -13,13 +13,13 @@ hide:
         === ":linuxmirrors: 官网 (推荐)"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/main.sh)
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh)
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/ChangeMirrors.sh)
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh)
             ```
 
         === ":simple-gitee: Gitee 码云 (镜像仓库)"
@@ -56,13 +56,13 @@ hide:
         === ":linuxmirrors: 官网 (推荐)"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/main.sh) --abroad
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --abroad
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/ChangeMirrors.sh) --abroad
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --abroad
             ```
 
         === ":simple-gitee: Gitee 码云 (镜像仓库)"
@@ -100,13 +100,13 @@ hide:
         === ":linuxmirrors: 官网 (推荐)"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/main.sh) --edu
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --edu
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/ChangeMirrors.sh) --edu
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --edu
             ```
 
         === ":simple-gitee: Gitee 码云 (镜像仓库)"
@@ -243,14 +243,14 @@ hide:
 
                 适用于大部分操作系统（`Alpine Linux` 除外），`python3` 要是不存在那就再试试 `python` 指令
                 ``` bash
-                python3 -c "import urllib.request; urllib.request.urlretrieve('https://linuxmirrors.cn/main.sh', 'main.sh')"
+                python3 -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh', 'main.sh')"
                 ```
 
             === "使用 wget 指令下载"
 
                 一般没有预装 `curl` 软件包的系统也不会预装 `wget` 软件包，所以大概率这个方法应该是不行的
                 ``` bash
-                wget https://linuxmirrors.cn/main.sh
+                wget https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh
                 ```
 
             === "使用浏览器下载"
@@ -497,7 +497,7 @@ hide:
 
 <!-- termynal -->
 ```
-$ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --help 
+$ bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --help 
 
 命令选项(名称/含义/值)：
 
@@ -573,7 +573,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --help
 - ### 指定软件源地址
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --source mirror.example.com
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --source mirror.example.com
     ```
 
 - ### 指定软件源仓库目录
@@ -591,7 +591,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --help
     请看下面的例子
 
     ``` { .bash title="使用阿里云镜像站的 Rocky Linux 软件源" }
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) \
       --source mirrors.aliyun.com \
       --branch rockylinux
     ```
@@ -609,7 +609,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --help
     有些时候你会发现想使用的镜像站没有 EPEL 仓库，那么你可以在第一次运行脚本时不安装或更换 EPEL 源然后再单独执行下面的命令
 
     ``` bash
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --only-epel
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --only-epel
     ```
 
     对于已经 EOL 的 EPEL 7，注意需要使用 [`archive`](https://dl.fedoraproject.org/pub/archive/epel) 仓库，境外以及海外网络环境建议通过命令选项 `--use-official-source-epel true` 使用官方源
@@ -619,7 +619,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --help
     当你不小心删除了官方源的备份时可以使用此命令来恢复，使用此命令选项后将跳过选择软件源步骤
 
     ``` bash
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --use-official-source true
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --use-official-source true
     ```
     > 部分系统不存在官方源例如 `Arch Linux`，届时会自动更换成兼容性较高的阿里云镜像站
 
@@ -652,7 +652,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --help
         如果你想尽可能提高服务器的安全性则建议使用官方源，因为镜像同步存在延迟
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) \
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) \
           --source-security security.debian.org \
           --branch-security debian-security
         ```
@@ -666,7 +666,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --help
             - 更换版本代号
 
                 ``` bash
-                bash <(curl -sSL https://linuxmirrors.cn/main.sh) \
+                bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) \
                   --codename trixie \
                   --upgrade-software false
                 ```
@@ -690,13 +690,13 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --help
                 # 清空原有软件源（如有非系统软件源内容请先自行手动备份）
                 sed -i '1,$d' /etc/apt/sources.list
                 # 重新执行换源脚本
-                bash <(curl -sSL https://linuxmirrors.cn/main.sh)
+                bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh)
                 ```
 
         === "将 GNU/Linux Debian 的版本切换到测试分支"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/main.sh) \
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) \
               --codename testing \
               --upgrade-software false
             ```
@@ -712,7 +712,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --help
         具体版本支持情况详见官方 [Wiki](https://documentation.ubuntu.com/project/release-team/list-of-releases/)，关于 `Ubuntu Old Releases` 仓库的支持情况详见各镜像站
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) \
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) \
           --source mirrors.ustc.edu.cn \
           --branch ubuntu-old-releases
         ```
@@ -733,7 +733,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --help
     - #### 指定语言
 
         ``` { .bash .no-copy }
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) --lang xxx
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --lang xxx
         ```
 
         | 类型 | 值 |
@@ -745,14 +745,14 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --help
         也可以直接作为命令选项使用
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en
         ```
         > `--en` `--en-us` `--zh` `--zh-cn` `--zh-hans` `--zh-hant`
 
     - #### 通过交互进行选择
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) --lang auto
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --lang auto
         ```
 
 - ### 无人值守（自动化）
@@ -760,7 +760,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --help
     不通过交互完成换源操作，至少需要使用如下命令选项来实现，建议熟悉后再使用
 
     ``` { .bash .no-copy title="参考命令" }
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) \
       --source mirror.example.com \
       --protocol http \
       --use-intranet-source false \
@@ -777,7 +777,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --help
     推出该功能是为了便于开发以及运维人员使用，启用后会精简脚本内容输出，建议搭配其它命令选项无交互使用
 
     ``` bash
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --pure-mode
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --pure-mode
     ```
 
     !!! tip "滚动输出的命令日志可能存在无法预料的显示问题，不过目前暂未发现异常"

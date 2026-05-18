@@ -15,13 +15,13 @@ hide:
         === ":linuxmirrors: Official Site (Recommended)"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/DockerInstallation.sh) --en
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en
             ```
 
         === ":simple-gitee: Gitee"
@@ -62,13 +62,13 @@ hide:
         === ":linuxmirrors: Official Site (Recommended)"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en --only-registry
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en --only-registry
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/DockerInstallation.sh) --en --only-registry
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en --only-registry
             ```
 
         === ":simple-gitee: Gitee"
@@ -215,7 +215,7 @@ hide:
 
 <!-- termynal -->
 ```
-$ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en --help 
+$ bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en --help 
 
 Command options(name/meaning/value):
 
@@ -261,13 +261,13 @@ Command options(name/meaning/value):
 - ### Specify Registry Mirror Address
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en --source-registry registry.example.com
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en --source-registry registry.example.com
     ```
 
     Can specify multiple addresses at the same time, and they must be separated by commas.
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en \
       --source-registry "registry-1.example.com,registry-2.example.com"
     ```
 
@@ -278,13 +278,13 @@ Command options(name/meaning/value):
         Only switches the registry accelerator. If Docker is not installed, an error will be reported and exit.
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en --only-registry
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en --only-registry
         ```
 
         Lazy one-click command (using multiple addresses)
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en \
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en \
           --only-registry \
           --source-registry "docker.1ms.run,docker.1panel.live,docker.m.daocloud.io"
         ```
@@ -338,7 +338,7 @@ Command options(name/meaning/value):
 - ### Specify Docker CE Source Address
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en --source mirror.example.com/docker-ce
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en --source mirror.example.com/docker-ce
     ```
     > Note: The address path must include the Docker CE mirror repository path, i.e., `docker-ce`.
 
@@ -347,13 +347,13 @@ Command options(name/meaning/value):
     The script will automatically detect this in most cases. Specify only if you have special requirements.
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en --branch centos
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en --branch centos
     ```
     > Repository names are fixed: [`centos`](https://download.docker.com/linux/centos/) [`debian`](https://download.docker.com/linux/debian/) [`fedora`](https://download.docker.com/linux/fedora/) [`raspbian`](https://download.docker.com/linux/raspbian/) [`rhel`](https://download.docker.com/linux/rhel/) [`sles`](https://download.docker.com/linux/sles/) [`static`](https://download.docker.com/linux/static/) [`ubuntu`](https://download.docker.com/linux/ubuntu/)  
     > See [official installation docs](https://docs.docker.com/engine/install) and [Docker CE official repo](https://download.docker.com/linux) for details.
 
     ``` { .bash .no-copy title="Can also specify the repository version number." }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en \
       --branch centos \
       --branch-version 9
     ```
@@ -364,7 +364,7 @@ Command options(name/meaning/value):
     When specifying a version, the "install latest" option is ignored. Format: `major.minor.patch`, e.g., `28.4.1`.
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en --designated-version 28.0.0
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en --designated-version 28.0.0
     ```
     > If the specified version does not exist or is not supported on your system, the script will report an error and exit.
 
@@ -395,7 +395,7 @@ Command options(name/meaning/value):
     - #### Specify Language
 
         ``` { .bash .no-copy }
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --lang xxx
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --lang xxx
         ```
 
         | Type | Value |
@@ -407,14 +407,14 @@ Command options(name/meaning/value):
         It can also be used directly as a command option
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant
         ```
         > `--en` `--en-us` `--zh` `--zh-cn` `--zh-hans` `--zh-hant`
 
     - #### Select through interaction
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --lang auto
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --lang auto
         ```
 
 - ### Unattended (Automation)
@@ -422,7 +422,7 @@ Command options(name/meaning/value):
     To perform installation without interaction, use at least the following options. Recommended for experienced users.
 
     ``` { .bash .no-copy title="Example Command" }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en \
       --source mirror.example.com/docker-ce \
       --source-registry registry.hub.docker.com \
       --protocol http \
@@ -438,7 +438,7 @@ Command options(name/meaning/value):
     This feature is introduced to facilitate the use of developers and operation and maintenance personnel. After it is enabled, the script content output will be simplified. It is recommended to use it with other command options without interaction.
 
     ``` bash
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en --pure-mode
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en --pure-mode
     ```
 
     !!! tip "Scrolling command logs may have unpredictable display issues, but no problems have been found so far."

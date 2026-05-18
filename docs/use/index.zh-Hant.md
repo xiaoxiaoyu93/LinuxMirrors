@@ -13,13 +13,13 @@ hide:
         === ":linuxmirrors: 官網 (推薦)"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant
             ```
 
         === ":simple-gitee: Gitee 碼雲 (鏡像倉庫)"
@@ -56,13 +56,13 @@ hide:
         === ":linuxmirrors: 官網 (推薦)"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --abroad
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant --abroad
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant --abroad
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant --abroad
             ```
 
         === ":simple-gitee: Gitee 碼雲 (鏡像倉庫)"
@@ -100,13 +100,13 @@ hide:
         === ":linuxmirrors: 官網 (推薦)"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --edu
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant --edu
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant --edu
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant --edu
             ```
 
         === ":simple-gitee: Gitee 碼雲 (鏡像倉庫)"
@@ -243,14 +243,14 @@ hide:
 
                 適用於大部分作業系統（`Alpine Linux` 除外），`python3` 要是不存在那就再試試 `python` 指令
                 ``` bash
-                python3 -c "import urllib.request; urllib.request.urlretrieve('https://linuxmirrors.cn/main.sh', 'main.sh')"
+                python3 -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh', 'main.sh')"
                 ```
 
             === "使用 wget 指令下載"
 
                 一般沒有預先安裝 `curl` 軟體包的系統也不會預先安裝 `wget` 軟體包，所以大機率這個方法應該是不行的
                 ``` bash
-                wget https://linuxmirrors.cn/main.sh
+                wget https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh
                 ```
 
             === "使用瀏覽器下載"
@@ -497,7 +497,7 @@ hide:
 
 <!-- termynal -->
 ```
-$ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --help 
+$ bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant --help 
 
 命令選項(名稱/含義/值)：
 
@@ -573,7 +573,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --help
 - ### 指定軟體源位址
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --source mirror.example.com
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant --source mirror.example.com
     ```
 
 - ### 指定軟體源倉庫目錄
@@ -591,7 +591,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --help
     請看下面的例子
 
     ``` { .bash title="使用阿里雲鏡像站的 Rocky Linux 軟體源" }
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant \
       --source mirrors.aliyun.com \
       --branch rockylinux
     ```
@@ -609,7 +609,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --help
     有些時候你會發現想使用的鏡像站沒有 EPEL 倉庫，那麼你可以在第一次運行腳本時不安裝或更換 EPEL 軟體源，然後再單獨執行下面的命令
 
     ``` bash
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --only-epel
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant --only-epel
     ```
 
     對於已經 EOL 的 EPEL 7，注意需要使用 [`archive`](https://dl.fedoraproject.org/pub/archive/epel) 倉庫，境外以及海外網絡環境建議通過命令選項 `--use-official-source-epel true` 使用官方源
@@ -619,7 +619,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --help
     當你不小心刪除了官方軟體源的備份時可以使用此命令來恢復，使用此命令選項後將跳過選擇軟體源步驟
 
     ``` bash
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --use-official-source true
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant --use-official-source true
     ```
     > 部分系統不存在官方軟體源例如 `Arch Linux`，屆時會自動更換成相容性較高的阿里雲鏡像站
 
@@ -652,7 +652,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --help
         如果你想盡可能提高伺服器的安全性建議使用官方軟體源，因為鏡像同步存在延遲
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant \
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant \
           --source-security security.debian.org \
           --branch-security debian-security
         ```
@@ -666,7 +666,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --help
             - 更換版本代號
 
                 ``` bash
-                bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant \
+                bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant \
                   --codename trixie \
                   --upgrade-software false
                 ```
@@ -690,13 +690,13 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --help
                 # 清空原有軟體源（如有非系統軟體源內容請先自行手動備份）
                 sed -i '1,$d' /etc/apt/sources.list
                 # 重新執行換源腳本
-                bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant
+                bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant
                 ```
 
         === "將 GNU/Linux Debian 的版本切換到測試分支"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant \
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant \
               --codename testing \
               --upgrade-software false
             ```
@@ -712,7 +712,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --help
         具體版本支援情況詳見官方 [Wiki](https://documentation.ubuntu.com/project/release-team/list-of-releases/)，關於 `Ubuntu Old Releases` 倉庫的支援情況詳見各鏡像站
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant \
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant \
           --source mirrors.ustc.edu.cn \
           --branch ubuntu-old-releases
         ```
@@ -733,7 +733,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --help
     - #### 指定語言
 
         ``` { .bash .no-copy }
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) --lang xxx
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --lang xxx
         ```
 
         | 類型 | 值 |
@@ -745,14 +745,14 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --help
         也可以直接作為指令選項使用
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en
         ```
         > `--en` `--en-us` `--zh` `--zh-cn` `--zh-hans` `--zh-hant`
 
     - #### 透過互動進行選擇
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/main.sh) --lang auto
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --lang auto
         ```
 
 - ### 無人值守（自動化）
@@ -760,7 +760,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --help
     不透過交互完成換源操作，至少需要使用以下命令選項來實現，建議熟悉後再使用
 
     ``` { .bash .no-copy title="参考命令" }
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant \
       --source mirror.example.com \
       --protocol http \
       --use-intranet-source false \
@@ -777,7 +777,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --help
     推出此功能是為了方便開發以及运維人員使用，啟用後會精簡腳本內容輸出，建議搭配其它指令選項無互動使用
 
     ``` bash
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --zh-hant --pure-mode
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --zh-hant --pure-mode
     ```
 
     !!! tip "滾動輸出的命令日誌可能有無法預料的顯示問題，不過目前暫未發現異常"

@@ -27,14 +27,14 @@ hide:
     <img src="/assets/images/brand/command/linux-light.png#only-light" alt="command-linux" />
     <img src="/assets/images/brand/command/linux-dark.png#only-dark" alt="command-linux" />
 
-    <button class="md-clipboard" data-clipboard-text="bash &lt;(curl -sSL https://linuxmirrors.cn/main.sh)" title="复制"></button>
+    <button class="md-clipboard" data-clipboard-text="bash &lt;(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh)" title="复制"></button>
 
 === ":simple-docker:{ .lg .middle style="color: #1d63ed"} Docker"
 
     <img src="/assets/images/brand/command/docker-light.png#only-light" alt="command-docker" />
     <img src="/assets/images/brand/command/docker-dark.png#only-dark" alt="command-docker" />
 
-    <button class="md-clipboard" data-clipboard-text="bash &lt;(curl -sSL https://linuxmirrors.cn/docker.sh)" title="复制"></button>
+    <button class="md-clipboard" data-clipboard-text="bash &lt;(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh)" title="复制"></button>
 
 </figure>
 </div>
