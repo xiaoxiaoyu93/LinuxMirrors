@@ -6,6 +6,8 @@ hide:
 
 ## 一鍵執行命令
 
+> 如遇 GitHub 存取緩慢，可使用加速前綴格式：`https://gh-proxy.org/https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{path}`，例如：`https://gh-proxy.org/https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh`
+
 === ":material-home-city: 中國大陸"
 
     !!! quote ""
