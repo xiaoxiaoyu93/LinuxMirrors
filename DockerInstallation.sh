@@ -662,7 +662,6 @@ function permission_judgment() {
     if [ $UID -ne 0 ]; then
         local change_cmd="su root"
         if command_exists sudo; then
-            change_cmd="sudo ${SCRIPT_EXEC_COMMAND}"
             if sudo -n true >/dev/null 2>&1 || sudo -v; then
                 if [ -f "$0" ]; then
                     exec sudo bash "$0" "${SCRIPT_ARGS[@]}"
@@ -671,6 +670,8 @@ function permission_judgment() {
             fi
             if [ -f "$0" ]; then
                 change_cmd="sudo bash $0"
+            else
+                change_cmd="sudo ${SCRIPT_EXEC_COMMAND}"
             fi
         fi
         output_error "$(msg "error.needRoot" "${BLUE}${change_cmd}${PLAIN}")"
