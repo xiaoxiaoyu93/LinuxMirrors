@@ -539,7 +539,7 @@ function run_end() {
 function print_dry_run_command() {
     local -a options=()
     local use_intranet_source="${USE_INTRANET_SOURCE:-"false"}"
-    local install_lateasted_docker="${INSTALL_LATESTED_DOCKER:-"true"}"
+    local install_latest_docker="${INSTALL_LATESTED_DOCKER:-"true"}"
     local close_firewall="${CLOSE_FIREWALL:-"false"}"
     local source_registry="${SOURCE_REGISTRY:-"registry.hub.docker.com"}"
 
@@ -565,7 +565,7 @@ function print_dry_run_command() {
         fi
         append_command_option "--protocol" "${WEB_PROTOCOL}"
         append_command_option "--use-intranet-source" "${use_intranet_source}"
-        append_command_option "--install-latest" "${install_lateasted_docker}"
+        append_command_option "--install-latest" "${install_latest_docker}"
         if [[ "${DESIGNATED_DOCKER_VERSION}" ]]; then
             append_command_option "--designated-version" "${DESIGNATED_DOCKER_VERSION}"
         fi
@@ -1188,7 +1188,6 @@ function close_firewall_service() {
         return
     fi
     if [[ "$(systemctl is-active firewalld)" == "active" ]]; then
-        choose_close_firewall_option
         if [[ "${CLOSE_FIREWALL}" == "true" ]]; then
             local SelinuxConfig=/etc/selinux/config
             systemctl disable --now firewalld >/dev/null 2>&1
