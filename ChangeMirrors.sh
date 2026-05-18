@@ -3,7 +3,7 @@
 ## Modified: 2026-05-18
 ## License: MIT
 ## GitHub: https://github.com/SuperManito/LinuxMirrors
-## Website: https://linuxmirrors.cn
+## Website: runtime script source
 
 ## 定制方法
 # 只需要在头部（此处）定义全局变量即可，具体详见官网文档，简单写几个例子
@@ -295,6 +295,43 @@ ERROR="\033[1;31m✘${PLAIN}"
 FAIL="\033[1;31m✘${PLAIN}"
 TIP="\033[1;44m TIP ${PLAIN}"
 WORKING="\033[1;36m◉${PLAIN}"
+SCRIPT_FILE_NAME="main.sh"
+SCRIPT_EXEC_COMMAND=""
+SCRIPT_INFO_ADDRESS=""
+
+function init_script_runtime_address() {
+    local script_url="${SCRIPT_URL:-${LINUXMIRRORS_SCRIPT_URL}}"
+    if [[ -z "${script_url}" ]]; then
+        local script_name_regex="${SCRIPT_FILE_NAME//./\\.}"
+        local parent_pid=''
+        if [[ -r /proc/$$/status ]]; then
+            parent_pid="$(awk '/^PPid:/{print $2}' /proc/$$/status 2>/dev/null)"
+        fi
+        if [[ "${parent_pid}" =~ ^[0-9]+$ && -r "/proc/${parent_pid}/cmdline" ]]; then
+            local parent_cmdline="$(tr '\0' ' ' < /proc/${parent_pid}/cmdline 2>/dev/null)"
+            script_url="$(grep -Eo "https?://[^[:space:]\"')>]+/${script_name_regex}" <<< "${parent_cmdline}" | tail -n1)"
+            if [[ -z "${script_url}" ]]; then
+                local grandparent_pid="$(awk '/^PPid:/{print $2}' /proc/${parent_pid}/status 2>/dev/null)"
+                if [[ "${grandparent_pid}" =~ ^[0-9]+$ && -r "/proc/${grandparent_pid}/cmdline" ]]; then
+                    local grand_cmdline="$(tr '\0' ' ' < /proc/${grandparent_pid}/cmdline 2>/dev/null)"
+                    script_url="$(grep -Eo "https?://[^[:space:]\"')>]+/${script_name_regex}" <<< "${grand_cmdline}" | tail -n1)"
+                fi
+            fi
+        fi
+    fi
+    if [[ -f "$0" ]]; then
+        local local_script_path
+        local_script_path="$(readlink -f "$0" 2>/dev/null || echo "$0")"
+        SCRIPT_EXEC_COMMAND="bash $(printf '%q' "${local_script_path}")"
+        SCRIPT_INFO_ADDRESS="${local_script_path}"
+    elif [[ "${script_url}" =~ ^https?:// ]]; then
+        SCRIPT_EXEC_COMMAND="bash <(curl -sSL ${script_url})"
+        SCRIPT_INFO_ADDRESS="${script_url%/*}"
+    else
+        SCRIPT_EXEC_COMMAND="bash <(curl -sSL https://SCRIPT_URL_NOT_DETECTED)"
+        SCRIPT_INFO_ADDRESS="Unable to detect script source; set SCRIPT_URL or LINUXMIRRORS_SCRIPT_URL"
+    fi
+}
 
 function main() {
     permission_judgment
@@ -743,7 +780,7 @@ function print_dry_run_command() {
     options+=("--ignore-backup-tips")
 
     echo -e "\n$(msg "dryrun.yourOptions")"
-    echo "bash <(curl -sSL https://linuxmirrors.cn/main.sh) \\"
+    echo "${SCRIPT_EXEC_COMMAND} \\"
     for ((i = 0; i < ${#options[@]}; i++)); do
         if [[ "${i}" -lt $((${#options[@]} - 1)) ]]; then
             echo "  ${options[i]} \\"
@@ -758,7 +795,7 @@ function run_end() {
         echo ''
         return
     fi
-    echo -e "\n✨ $(msg "end.moreInfo") 👉 \033[3mhttps://linuxmirrors.cn\033[0m"
+    echo -e "\n✨ $(msg "end.moreInfo") 👉 \033[3m${SCRIPT_INFO_ADDRESS}\033[0m"
     if [[ "${#SPONSOR_ADS[@]}" -gt 0 ]]; then
         _str_width() {
             local s="$1"
@@ -845,7 +882,7 @@ function permission_judgment() {
             if [ -f "$0" ]; then
                 exec sudo bash "$0" "${SCRIPT_ARGS[@]}"
             fi
-            change_cmd="sudo bash <(curl -sSL https://linuxmirrors.cn/main.sh)"
+            change_cmd="sudo ${SCRIPT_EXEC_COMMAND}"
         fi
         output_error "$(msg "error.needRoot" "${BLUE}${change_cmd}${PLAIN}")"
     fi
@@ -8830,6 +8867,7 @@ Issue Report {}'
 ##############################################################################
 
 SCRIPT_ARGS=("$@")
+init_script_runtime_address
 init_msg_pack
 handle_command_options "$@"
 main
