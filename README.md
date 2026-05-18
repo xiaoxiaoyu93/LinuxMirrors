@@ -156,6 +156,7 @@
 ## 快速开始
 
 > 更多使用方法详见项目官方网站 [**linuxmirrors.cn**](https://linuxmirrors.cn/use/)
+> 如遇 GitHub 访问缓慢，可使用加速 URL 示例：`https://gh-proxy.org/https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh`
 
 - ### GNU/Linux 更换系统软件源
 

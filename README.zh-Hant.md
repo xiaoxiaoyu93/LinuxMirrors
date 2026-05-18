@@ -156,6 +156,7 @@
 ## 快速開始
 
 > 更多使用方法詳見專案官方網站 [**linuxmirrors.cn**](https://linuxmirrors.cn/zh-Hant/use/)
+> 如遇 GitHub 存取緩慢，可使用加速 URL 範例：`https://gh-proxy.org/https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh`
 
 - ### GNU/Linux 更換系統軟體源
 

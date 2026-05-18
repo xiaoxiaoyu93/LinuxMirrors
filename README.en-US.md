@@ -156,6 +156,7 @@
 ## Quick Start
 
 > For more usage, see official project website [**linuxmirrors.cn**](https://linuxmirrors.cn/en/use/)
+> If GitHub access is slow, you can use this accelerated URL example: `https://gh-proxy.org/https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh`
 
 - ### GNU/Linux System Software Mirror Switching
 

@@ -6,6 +6,8 @@ hide:
 
 ## One-Click Command
 
+> If GitHub access is slow, you can use this accelerated URL example: `https://gh-proxy.org/https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh`
+
 === ":material-home-city: Chinese mainland"
 
     !!! quote ""
