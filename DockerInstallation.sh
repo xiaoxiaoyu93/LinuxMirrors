@@ -2615,7 +2615,7 @@ function msg_pack_zh_hant() {
   --close-firewall          是否關閉防火牆                               true 或 false
   --clean-screen            是否在運行前清除螢幕上的所有內容             true 或 false
   --dry-run                 結束選擇後不執行安裝操作，僅輸出無人值守參數    無
-  --lang                    指定腳本輸出的語言                           语言
+  --lang                    指定腳本輸出的語言                           語言
   --only-registry           僅更換映像倉庫模式                           無
   --ignore-backup-tips      忽略覆蓋備份提示                             無
   --pure-mode               純淨模式，精簡列印內容                       無
