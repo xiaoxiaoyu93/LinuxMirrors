@@ -622,12 +622,12 @@ function permission_judgment() {
         return
     fi
     if [ $UID -ne 0 ]; then
-        if command_exists sudo && [ -f "$0" ]; then
-            exec sudo bash "$0" "${SCRIPT_ARGS[@]}"
-        fi
         local change_cmd="su root"
         if command_exists sudo; then
-            change_cmd="sudo -i"
+            if [ -f "$0" ]; then
+                exec sudo bash "$0" "${SCRIPT_ARGS[@]}"
+            fi
+            change_cmd="sudo bash <(curl -sSL https://linuxmirrors.cn/docker.sh)"
         fi
         output_error "$(msg "error.needRoot" "${BLUE}${change_cmd}${PLAIN}")"
     fi
