@@ -3,6 +3,7 @@ MESSAGE_CONTENTS=(
     ['start.runtimeEnv']='运行环境'
     ['start.dateTime']='系统时间'
     ['end.moreInfo']='脚本运行完毕，更多使用教程详见官网'
+    ['dryrun.yourOptions']='你的选项：'
     ['error.cmd.options.needConfirm']='请确认后重新输入'
     ['error.cmd.options.needSpecify']='请在该选项后指定{}'
     ['error.cmd.options.invalid']='命令选项 {} 无效，{}！'
@@ -103,6 +104,7 @@ MESSAGE_CONTENTS=(
   --only-epel                  仅更换 EPEL 软件源模式                                             无
   --ignore-backup-tips         忽略覆盖备份提示                                                   无
   --print-diff                 打印源文件修改前后差异                                             无
+  --dry-run                    结束选择后不执行安装操作，仅输出无人值守参数                       无
   --pure-mode                  纯净模式，精简打印内容                                             无
   --help                       查看帮助菜单                                                       无
 

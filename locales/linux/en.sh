@@ -3,6 +3,7 @@ MESSAGE_CONTENTS=(
     ['start.runtimeEnv']='Runtime Env'
     ['start.dateTime']='System Time'
     ['end.moreInfo']='Script execution completed, visit our website for more tutorials'
+    ['dryrun.yourOptions']='Your options:'
     ['error.cmd.options.needConfirm']='Please confirm and re-enter'
     ['error.cmd.options.needSpecify']='Please specify {} after this option'
     ['error.cmd.options.invalid']='Command option {} is invalid, {}!'
@@ -103,6 +104,7 @@ MESSAGE_CONTENTS=(
   --only-epel                  Only switch EPEL repo                                                        none
   --ignore-backup-tips         Ignore backup overwrite prompt                                               none
   --print-diff                 Print diff before and after modification                                     none
+  --dry-run                    Skip installation after selections and only print unattended arguments        none
   --pure-mode                  Pure mode, minimal output                                                    none
   --help                       Show help menu                                                               none
 

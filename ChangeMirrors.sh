@@ -1,6 +1,6 @@
 #!/bin/bash
 ## Author: SuperManito
-## Modified: 2026-04-16
+## Modified: 2026-05-18
 ## License: MIT
 ## GitHub: https://github.com/SuperManito/LinuxMirrors
 ## Website: https://linuxmirrors.cn
@@ -304,6 +304,11 @@ function main() {
     choose_mirrors
     choose_protocol
     choose_install_epel_packages
+    if [[ "${DRY_RUN}" == "true" ]]; then
+        select_upgrade_options
+        print_dry_run_command
+        return
+    fi
     backup_original_mirrors
     remove_original_mirrors
     change_mirrors_main
@@ -654,6 +659,10 @@ function handle_command_options() {
         --print-diff)
             PRINT_DIFF="true"
             ;;
+        ## 仅打印无人值守参数
+        --dry-run)
+            DRY_RUN="true"
+            ;;
         ## 纯净模式
         --pure-mode)
             PURE_MODE="true"
@@ -675,6 +684,7 @@ function handle_command_options() {
     USE_OFFICIAL_SOURCE="${USE_OFFICIAL_SOURCE:-"false"}"
     IGNORE_BACKUP_TIPS="${IGNORE_BACKUP_TIPS:-"false"}"
     PRINT_DIFF="${PRINT_DIFF:-"false"}"
+    DRY_RUN="${DRY_RUN:-"false"}"
     PURE_MODE="${PURE_MODE:-"false"}"
 }
 
@@ -700,6 +710,47 @@ function run_start() {
     echo -e "$(msg "start.runtimeEnv") ${BLUE}${system_name} ${arch}${PLAIN}"
     echo -e "$(msg "start.dateTime") ${BLUE}${date_time} ${time_zone}${PLAIN}"
     sleep 1 >/dev/null 2>&1
+}
+
+function print_dry_run_command() {
+    local -a options=()
+    local use_intranet_source="${USE_INTRANET_SOURCE:-"false"}"
+    local install_epel="${INSTALL_EPEL:-"false"}"
+    local backup="${BACKUP:-"true"}"
+    local upgrade_software="${UPGRADE_SOFTWARE:-"false"}"
+    local clean_cache="${CLEAN_CACHE:-"false"}"
+
+    append_command_option() {
+        local option_name="$1"
+        local option_value="$2"
+        options+=("${option_name} $(printf '%q' "${option_value}")")
+    }
+
+    if [[ "${ONLY_EPEL}" == "true" ]]; then
+        options+=("--only-epel")
+    fi
+    if [[ "${USE_OFFICIAL_SOURCE}" == "true" ]]; then
+        append_command_option "--use-official-source" "true"
+    elif [[ -n "${SOURCE}" ]]; then
+        append_command_option "--source" "${SOURCE}"
+    fi
+    append_command_option "--protocol" "${WEB_PROTOCOL}"
+    append_command_option "--use-intranet-source" "${use_intranet_source}"
+    append_command_option "--install-epel" "${install_epel}"
+    append_command_option "--backup" "${backup}"
+    append_command_option "--upgrade-software" "${upgrade_software}"
+    append_command_option "--clean-cache" "${clean_cache}"
+    options+=("--ignore-backup-tips")
+
+    echo -e "\n$(msg "dryrun.yourOptions")"
+    echo "bash <(curl -sSL https://linuxmirrors.cn/main.sh) \\"
+    for ((i = 0; i < ${#options[@]}; i++)); do
+        if [[ "${i}" -lt $((${#options[@]} - 1)) ]]; then
+            echo "  ${options[i]} \\"
+        else
+            echo "  ${options[i]}"
+        fi
+    done
 }
 
 function run_end() {
@@ -785,7 +836,13 @@ function command_exists() {
 }
 
 function permission_judgment() {
+    if [[ "${DRY_RUN}" == "true" ]]; then
+        return
+    fi
     if [ $UID -ne 0 ]; then
+        if command_exists sudo && [ -f "$0" ]; then
+            exec sudo bash "$0" "${SCRIPT_ARGS[@]}"
+        fi
         local change_cmd="su root"
         if command_exists sudo; then
             change_cmd="sudo -i"
@@ -2023,11 +2080,13 @@ function change_mirrors_main() {
     fi
 }
 
-## 升级软件包
-function upgrade_software() {
+## 选择升级软件包参数
+function select_upgrade_options() {
     ## 跳过特殊的系统
     case "${SYSTEM_JUDGMENT}" in
     "${SYSTEM_RHEL}" | "${SYSTEM_ORACLE}")
+        UPGRADE_SOFTWARE="false"
+        CLEAN_CACHE="false"
         return
         ;;
     esac
@@ -2058,6 +2117,7 @@ function upgrade_software() {
         fi
     fi
     if [[ "${UPGRADE_SOFTWARE}" == "false" ]]; then
+        CLEAN_CACHE="false"
         return
     fi
     if [[ -z "${CLEAN_CACHE}" ]]; then
@@ -2083,6 +2143,14 @@ function upgrade_software() {
                 ;;
             esac
         fi
+    fi
+}
+
+## 升级软件包
+function upgrade_software() {
+    select_upgrade_options
+    if [[ "${UPGRADE_SOFTWARE}" == "false" ]]; then
+        return
     fi
     local -a commands=()
     case "${SYSTEM_FACTIONS}" in
@@ -8061,6 +8129,7 @@ function msg_pack_zh_hans() {
         ['start.runtimeEnv']='运行环境'
         ['start.dateTime']='系统时间'
         ['end.moreInfo']='脚本运行完毕，更多使用教程详见官网'
+        ['dryrun.yourOptions']='你的选项：'
         ['error.cmd.options.needConfirm']='请确认后重新输入'
         ['error.cmd.options.needSpecify']='请在该选项后指定{}'
         ['error.cmd.options.invalid']='命令选项 {} 无效，{}！'
@@ -8161,6 +8230,7 @@ function msg_pack_zh_hans() {
   --only-epel                  仅更换 EPEL 软件源模式                                             无
   --ignore-backup-tips         忽略覆盖备份提示                                                   无
   --print-diff                 打印源文件修改前后差异                                             无
+  --dry-run                    结束选择后不执行安装操作，仅输出无人值守参数                       无
   --pure-mode                  纯净模式，精简打印内容                                             无
   --help                       查看帮助菜单                                                       无
 
@@ -8292,6 +8362,7 @@ function msg_pack_zh_hant() {
         ['start.runtimeEnv']='執行環境'
         ['start.dateTime']='系統時間'
         ['end.moreInfo']='腳本執行完畢，更多使用教學詳見官網'
+        ['dryrun.yourOptions']='你的選項：'
         ['error.cmd.options.needConfirm']='請確認後重新輸入'
         ['error.cmd.options.needSpecify']='請在該選項後指定{}'
         ['error.cmd.options.invalid']='命令選項 {} 無效，{}！'
@@ -8393,6 +8464,7 @@ function msg_pack_zh_hant() {
   --only-epel                  僅更換 EPEL 軟體源模式                                                 無
   --ignore-backup-tips         忽略覆蓋備份提示                                                       無
   --print-diff                 是否列印原始文件修改前後差異                                           無
+  --dry-run                    結束選擇後不執行安裝操作，僅輸出無人值守參數                           無
   --pure-mode                  純淨模式，精簡列印內容                                                 無
   --help                       查看幫助選單                                                           無
 
@@ -8525,6 +8597,7 @@ function msg_pack_en() {
         ['start.runtimeEnv']='Runtime Env'
         ['start.dateTime']='System Time'
         ['end.moreInfo']='Script execution completed, visit our website for more tutorials'
+        ['dryrun.yourOptions']='Your options:'
         ['error.cmd.options.needConfirm']='Please confirm and re-enter'
         ['error.cmd.options.needSpecify']='Please specify {} after this option'
         ['error.cmd.options.invalid']='Command option {} is invalid, {}!'
@@ -8625,6 +8698,7 @@ function msg_pack_en() {
   --only-epel                  Only switch EPEL repo                                                        none
   --ignore-backup-tips         Ignore backup overwrite prompt                                               none
   --print-diff                 Print diff before and after modification                                     none
+  --dry-run                    Skip installation after selections and only print unattended arguments        none
   --pure-mode                  Pure mode, minimal output                                                    none
   --help                       Show help menu                                                               none
 
@@ -8755,6 +8829,7 @@ Issue Report {}'
 
 ##############################################################################
 
+SCRIPT_ARGS=("$@")
 init_msg_pack
 handle_command_options "$@"
 main

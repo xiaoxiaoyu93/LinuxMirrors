@@ -204,6 +204,7 @@ function main() {
         install_docker_engine
         change_docker_registry_mirror
         check_installed_result
+        add_user_to_docker_group
     fi
     run_end
 }
@@ -552,6 +553,9 @@ function command_exists() {
 
 function permission_judgment() {
     if [ $UID -ne 0 ]; then
+        if command_exists sudo && [ -f "$0" ]; then
+            exec sudo bash "$0" "${SCRIPT_ARGS[@]}"
+        fi
         local change_cmd="su root"
         if command_exists sudo; then
             change_cmd="sudo -i"
@@ -1832,6 +1836,38 @@ function check_installed_result() {
     fi
 }
 
+## 将用户加入 docker 组
+function add_user_to_docker_group() {
+    if [[ -z "${SUDO_USER}" ]] || [[ "${SUDO_USER}" == "root" ]]; then
+        return
+    fi
+    local ask_text="$(msg "interaction.dockerGroup.addUser" "${BLUE}${SUDO_USER}${PLAIN}")?"
+    if [[ "${CAN_USE_ADVANCED_INTERACTIVE_SELECTION}" == "true" ]]; then
+        echo ''
+        interactive_select_boolean "${BOLD}${ask_text}${PLAIN}"
+        if [[ "${_SELECT_RESULT}" == "true" ]]; then
+            if usermod -aG docker "${SUDO_USER}"; then
+                echo -e "\n$SUCCESS $(msg "info.dockerGroup.added" "${BLUE}${SUDO_USER}${PLAIN}")"
+            fi
+        fi
+    else
+        local CHOICE="$(echo -e "\n${BOLD}└─ ${ask_text} [Y/n] ${PLAIN}")"
+        read -rp "${CHOICE}" INPUT
+        [[ -z "${INPUT}" ]] && INPUT=Y
+        case "${INPUT}" in
+        [Yy] | [Yy][Ee][Ss])
+            if usermod -aG docker "${SUDO_USER}"; then
+                echo -e "\n$SUCCESS $(msg "info.dockerGroup.added" "${BLUE}${SUDO_USER}${PLAIN}")"
+            fi
+            ;;
+        [Nn] | [Nn][Oo]) ;;
+        *)
+            input_error "$(msg "error.defaultBehavior.noClose")"
+            ;;
+        esac
+    fi
+}
+
 ## 选择系统包管理器
 function get_package_manager() {
     local command="yum"
@@ -2326,6 +2362,8 @@ function msg_pack_zh_hans() {
         ['result.install.manuallyRun']='请执行 {} 命令尝试启动或自行查询错误原因'
         ['result.registry.success']='已更换镜像仓库'
         ['result.registry.dockerEngineNotExsit']='当前尚未安装 Docker Engine，请取消设置 {} 命令选项后重新执行脚本！'
+        ['interaction.dockerGroup.addUser']='是否将用户 {} 加入 docker 组'
+        ['info.dockerGroup.added']='已将用户 {} 加入 docker 组，重新登录后生效'
         ['commands.help']='命令选项(名称/含义/值)：
 
   --source                  指定 Docker CE 软件源地址(域名或IP)         地址
@@ -2479,6 +2517,8 @@ function msg_pack_zh_hant() {
         ['result.install.manuallyRun']='請執行 {} 命令嘗試啟動或自行查詢錯誤原因'
         ['result.registry.success']='已更換映象倉庫'
         ['result.registry.dockerEngineNotExsit']='目前尚未安裝 Docker Engine，請取消設定 {} 命令選項後重新執行腳本！'
+        ['interaction.dockerGroup.addUser']='是否將使用者 {} 加入 docker 群組'
+        ['info.dockerGroup.added']='已將使用者 {} 加入 docker 群組，重新登入後生效'
         ['commands.help']='命令選項(名稱/含義/值)：
 
   --source                  指定 Docker CE 軟體源位址(網域名稱或IP)      位址
@@ -2633,6 +2673,8 @@ function msg_pack_en() {
         ['result.install.manuallyRun']='Please execute {} command to try starting or investigate error cause'
         ['result.registry.success']='Registry mirror replaced successfully'
         ['result.registry.dockerEngineNotExsit']='Docker Engine is not installed yet, please remove {} command option and rerun script!'
+        ['interaction.dockerGroup.addUser']='Add user {} to the docker group'
+        ['info.dockerGroup.added']='User {} has been added to the docker group, please re-login to take effect'
         ['commands.help']='Command options(name/meaning/value):
 
   --source                  Specify Docker CE mirror address (domain or IP)           address
@@ -2705,6 +2747,7 @@ Issue Report {}'
     )
 }
 
+SCRIPT_ARGS=("$@")
 init_msg_pack
 handle_command_options "$@"
 main
