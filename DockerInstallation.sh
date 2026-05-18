@@ -1150,12 +1150,14 @@ function choose_protocol() {
 }
 
 function choose_close_firewall_option() {
+    FIREWALLD_IS_ACTIVE="false"
     if ! command_exists systemctl; then
         return
     fi
     if [[ "$(systemctl is-active firewalld 2>/dev/null)" != "active" ]]; then
         return
     fi
+    FIREWALLD_IS_ACTIVE="true"
     if [[ -n "${CLOSE_FIREWALL}" ]]; then
         return
     fi
@@ -1184,15 +1186,13 @@ function choose_close_firewall_option() {
 
 ## 关闭防火墙和SELinux
 function close_firewall_service() {
-    if ! command_exists systemctl; then
+    if [[ "${FIREWALLD_IS_ACTIVE}" != "true" ]]; then
         return
     fi
-    if [[ "$(systemctl is-active firewalld 2>/dev/null)" == "active" ]]; then
-        if [[ "${CLOSE_FIREWALL}" == "true" ]]; then
-            local SelinuxConfig=/etc/selinux/config
-            systemctl disable --now firewalld >/dev/null 2>&1
-            [ -s "${SelinuxConfig}" ] && sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" $SelinuxConfig && setenforce 0 >/dev/null 2>&1
-        fi
+    if [[ "${CLOSE_FIREWALL}" == "true" ]]; then
+        local SelinuxConfig=/etc/selinux/config
+        systemctl disable --now firewalld >/dev/null 2>&1
+        [ -s "${SelinuxConfig}" ] && sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" $SelinuxConfig && setenforce 0 >/dev/null 2>&1
     fi
 }
 
