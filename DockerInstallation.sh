@@ -2457,7 +2457,7 @@ function msg_pack_zh_hans() {
   --install-latest          是否安装最新版本的 Docker Engine            true 或 false
   --close-firewall          是否关闭防火墙                              true 或 false
   --clean-screen            是否在运行前清除屏幕上的所有内容            true 或 false
-  --dry-run                 结束选择后不执行安装操作，仅输出无人值守参数  无
+  --dry-run                 结束选择后不执行安装操作，仅输出无人值守参数    无
   --lang                    指定脚本使用的语言 ID                       语言
   --only-registry           仅更换镜像仓库模式                          无
   --ignore-backup-tips      忽略覆盖备份提示                            无
@@ -2614,7 +2614,7 @@ function msg_pack_zh_hant() {
   --install-latest          是否安裝最新版本的 Docker Engine             true 或 false
   --close-firewall          是否關閉防火牆                               true 或 false
   --clean-screen            是否在運行前清除螢幕上的所有內容             true 或 false
-  --dry-run                 結束選擇後不執行安裝操作，僅輸出無人值守參數   無
+  --dry-run                 結束選擇後不執行安裝操作，僅輸出無人值守參數    無
   --lang                    指定腳本輸出的語言                           语言
   --only-registry           僅更換映像倉庫模式                           無
   --ignore-backup-tips      忽略覆蓋備份提示                             無
@@ -2772,7 +2772,7 @@ function msg_pack_en() {
   --install-latest          Whether to install the latest Docker Engine               true or false
   --close-firewall          Whether to disable the firewall                           true or false
   --clean-screen            Whether to clear the screen before running                true or false
-  --dry-run                 Skip installation after selections and only print unattended arguments none
+  --dry-run                 Skip installation after selections and only print unattended arguments  none
   --lang                    Specify the language of the script output                 language
   --only-registry           Only switch registry mirror mode                          none
   --ignore-backup-tips      Ignore backup overwrite prompt (do not backup)            none
