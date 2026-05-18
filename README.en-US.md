@@ -160,19 +160,19 @@
 - ### GNU/Linux System Software Mirror Switching
 
     ```bash
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh) --en
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh) --en
     ```
 
 - ### Docker Installation & Mirror Switching
 
     ```bash
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en
     ```
 
 - ### Docker Switch Registry Mirror
 
     ```bash
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en --only-registry
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en --only-registry
     ```
 
 ## Special Thanks

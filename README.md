@@ -160,19 +160,19 @@
 - ### GNU/Linux 更换系统软件源
 
     ```bash
-    bash <(curl -sSL https://linuxmirrors.cn/main.sh)
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/ChangeMirrors.sh)
     ```
 
 - ### Docker 安装与换源
 
     ```bash
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh)
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh)
     ```
 
 - ### Docker 更换镜像加速器
 
     ```bash
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --only-registry
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --only-registry
     ```
 
 ## 特别感谢

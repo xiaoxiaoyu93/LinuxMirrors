@@ -15,13 +15,13 @@ hide:
         === ":linuxmirrors: 官网（推荐）"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/docker.sh)
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh)
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/DockerInstallation.sh)
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh)
             ```
 
         === ":simple-gitee: Gitee 码云 (镜像仓库)"
@@ -62,13 +62,13 @@ hide:
         === ":linuxmirrors: 官网（推荐）"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --only-registry
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --only-registry
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/DockerInstallation.sh) --only-registry
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --only-registry
             ```
 
         === ":simple-gitee: Gitee 码云 (镜像仓库)"
@@ -214,7 +214,7 @@ hide:
 
 <!-- termynal -->
 ```
-$ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --help 
+$ bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --help 
 
 命令选项(名称/含义/值)：
 
@@ -260,13 +260,13 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --help
 - ### 指定镜像仓库地址
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --source-registry registry.example.com
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --source-registry registry.example.com
     ```
 
     可以同时指定多个地址，需使用英文逗号进行分割
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) \
       --source-registry "registry-1.example.com,registry-2.example.com"
     ```
 
@@ -277,13 +277,13 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --help
         仅更换镜像加速器，当检测到未安装 Docker 时会报错跳出
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --only-registry
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --only-registry
         ```
 
         懒人一键命令（使用多个地址）
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) \
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) \
           --only-registry \
           --source-registry "docker.1ms.run,docker.1panel.live,docker.m.daocloud.io"
         ```
@@ -337,7 +337,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --help
 - ### 指定 Docker CE 软件源地址
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --source mirror.example.com/docker-ce
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --source mirror.example.com/docker-ce
     ```
     > 注意该地址路径需要包含镜像站的 Docker CE 软件源仓库路径即 `docker-ce`
 
@@ -346,13 +346,13 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --help
     脚本默认会自动判断一般无需指定，除非你有特殊需求
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --branch centos
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --branch centos
     ```
     > 仓库名是固定的，目前只有 [`centos`](https://download.docker.com/linux/centos/) [`debian`](https://download.docker.com/linux/debian/) [`fedora`](https://download.docker.com/linux/fedora/) [`raspbian`](https://download.docker.com/linux/raspbian/) [`rhel`](https://download.docker.com/linux/rhel/) [`sles`](https://download.docker.com/linux/sles/) [`static`](https://download.docker.com/linux/static/) [`ubuntu`](https://download.docker.com/linux/ubuntu/) 这几个  
     > 具体详见 [官方安装文档](https://docs.docker.com/engine/install) 和 [Docker CE 官方仓库](https://download.docker.com/linux)
 
     ``` { .bash .no-copy title="还可以指定仓库版本号" }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) \
       --branch centos \
       --branch-version 9
     ```
@@ -363,7 +363,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --help
     指定安装版本时会忽略 `是否安装最新版本` 的命令选项，格式为 `主版本.次版本.补丁版本`，例如 `28.4.1`。
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --designated-version 28.0.0
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --designated-version 28.0.0
     ```
     > 如果指定的版本不存在或者不支持当前系统，届时脚本会报错跳出
 
@@ -394,7 +394,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --help
     - #### 指定语言
 
         ``` { .bash .no-copy }
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --lang xxx
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --lang xxx
         ```
 
         | 类型 | 值 |
@@ -406,14 +406,14 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --help
         也可以直接作为命令选项使用
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en
         ```
         > `--en` `--en-us` `--zh` `--zh-cn` `--zh-hans` `--zh-hant`
 
     - #### 通过交互进行选择
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --lang auto
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --lang auto
         ```
 
 - ### 无人值守（自动化）
@@ -421,7 +421,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --help
     不通过交互完成安装操作，至少需要使用如下命令选项来实现，建议熟悉后再使用
 
     ``` { .bash .no-copy title="参考命令" }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) \
       --source mirror.example.com/docker-ce \
       --source-registry registry.hub.docker.com \
       --protocol http \
@@ -437,7 +437,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --help
     推出该功能是为了便于开发以及运维人员使用，启用后会精简脚本内容输出，建议搭配其它命令选项无交互使用
 
     ``` bash
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --pure-mode
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --pure-mode
     ```
 
     !!! tip "滚动输出的命令日志可能存在无法预料的显示问题，不过目前暂未发现异常"

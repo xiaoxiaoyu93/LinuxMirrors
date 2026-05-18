@@ -15,13 +15,13 @@ hide:
         === ":linuxmirrors: 官網（推薦）"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/DockerInstallation.sh) --zh-hant
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant
             ```
 
         === ":simple-gitee: Gitee 碼雲 (鏡像倉庫)"
@@ -62,13 +62,13 @@ hide:
         === ":linuxmirrors: 官網（推薦）"
 
             ``` bash
-            bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --only-registry
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant --only-registry
             ```
 
         === ":simple-github: GitHub"
 
             ``` bash
-            bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/DockerInstallation.sh) --zh-hant --only-registry
+            bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant --only-registry
             ```
 
         === ":simple-gitee: Gitee 碼雲 (映像倉庫)"
@@ -215,7 +215,7 @@ hide:
 
 <!-- termynal -->
 ```
-$ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --help 
+$ bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant --help 
 
 命令選項(名稱/含義/值)：
 
@@ -261,13 +261,13 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --help
 - ### 指定映像倉庫位址
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --source-registry registry.example.com
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant --source-registry registry.example.com
     ```
 
     可同時指定多個地址，需使用英文逗號分割
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant \
       --source-registry "registry-1.example.com,registry-2.example.com"
     ```
 
@@ -278,13 +278,13 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --help
         僅更換鏡像加速器，當偵測到未安裝 Docker 時會報錯跳出
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --only-registry
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant --only-registry
         ```
 
         懶人一鍵指令（使用多個位址）
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant \
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant \
           --only-registry \
           --source-registry "docker.1ms.run,docker.1panel.live,docker.m.daocloud.io"
         ```
@@ -338,7 +338,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --help
 - ### 指定 `Docker CE` 軟體源位址
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --source mirror.example.com/docker-ce
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant --source mirror.example.com/docker-ce
     ```
     > 注意該位址路徑需要包含映像站的 Docker CE 軟體源倉庫路徑即 `docker-ce`
 
@@ -347,13 +347,13 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --help
     腳本預設會自動判斷一般無需指定，除非你有特殊需求
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --branch centos
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant --branch centos
     ```
     > 倉庫名稱是固定的，目前只有 [`centos`](https://download.docker.com/linux/centos/) [`debian`](https://download.docker.com/linux/debian/) [`fedora`](https://download.docker.com/linux/fedora/) [`raspbian`](https://download.docker.com/linux/raspbian/) [`rhel`](https://download.docker.com/linux/rhel/) [`sles`](https://download.docker.com/linux/sles/) [`static`](https://download.docker.com/linux/static/) [`ubuntu`](https://download.docker.com/linux/ubuntu/) 這幾個  
     > 詳情請見 [官方安裝文件](https://docs.docker.com/engine/install) 及 [Docker CE 官方倉庫](https://download.docker.com/linux)
 
     ``` { .bash .no-copy title="还可以指定倉庫版本號" }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant \
       --branch centos \
       --branch-version 9
     ```
@@ -364,7 +364,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --help
     指定安裝版本時會忽略 `是否安裝最新版本` 的命令選項，格式為 `主版.次版本.補丁版本`，例如 `28.4.1`。
 
     ``` { .bash .no-copy }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --designated-version 28.0.0
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant --designated-version 28.0.0
     ```
     > 如果指定的版本不存在或不支援當前作業系統，屆時腳本會報錯跳出
 
@@ -395,7 +395,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --help
     - #### 指定語言
 
         ``` { .bash .no-copy }
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --lang xxx
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --lang xxx
         ```
 
         | 類型 | 值 |
@@ -407,14 +407,14 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --help
         也可以直接作為指令選項使用
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --en
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --en
         ```
         > `--en` `--en-us` `--zh` `--zh-cn` `--zh-hans` `--zh-hant`
 
     - #### 透過互動進行選擇
 
         ``` bash
-        bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --lang auto
+        bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --lang auto
         ```
 
 - ### 無人值守（自動化）
@@ -422,7 +422,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --help
     不透過交互完成安裝操作，至少需要使用以下命令選項來實現，建議熟悉後再使用
 
     ``` { .bash .no-copy title="参考命令" }
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant \
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant \
       --source mirror.example.com/docker-ce \
       --source-registry registry.hub.docker.com \
       --protocol http \
@@ -438,7 +438,7 @@ $ bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --help
     推出此功能是為了方便開發以及运维人員使用，啟用後會精簡腳本內容輸出，建議搭配其它指令選項無互動使用
 
     ``` bash
-    bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --zh-hant --pure-mode
+    bash <(curl -sSL https://raw.githubusercontent.com/xiaoxiaoyu93/LinuxMirrors/main/DockerInstallation.sh) --zh-hant --pure-mode
     ```
 
     !!! tip "滾動輸出的命令日誌可能有無法預料的顯示問題，不過目前暫未發現異常"
