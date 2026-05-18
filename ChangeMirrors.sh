@@ -709,7 +709,6 @@ function run_end() {
     fi
     echo -e "\n✨ $(msg "end.moreInfo") 👉 \033[3mhttps://linuxmirrors.cn\033[0m"
     if [[ "${#SPONSOR_ADS[@]}" -gt 0 ]]; then
-        echo -e "\n\033[2m$(msg "end.sponsorAds")\033[0m"
         _str_width() {
             local s="$1"
             shopt -s extglob
@@ -8062,7 +8061,6 @@ function msg_pack_zh_hans() {
         ['start.runtimeEnv']='运行环境'
         ['start.dateTime']='系统时间'
         ['end.moreInfo']='脚本运行完毕，更多使用教程详见官网'
-        ['end.sponsorAds']='【赞助商广告】'
         ['error.cmd.options.needConfirm']='请确认后重新输入'
         ['error.cmd.options.needSpecify']='请在该选项后指定{}'
         ['error.cmd.options.invalid']='命令选项 {} 无效，{}！'
@@ -8294,7 +8292,6 @@ function msg_pack_zh_hant() {
         ['start.runtimeEnv']='執行環境'
         ['start.dateTime']='系統時間'
         ['end.moreInfo']='腳本執行完畢，更多使用教學詳見官網'
-        ['end.sponsorAds']='【贊助商廣告】'
         ['error.cmd.options.needConfirm']='請確認後重新輸入'
         ['error.cmd.options.needSpecify']='請在該選項後指定{}'
         ['error.cmd.options.invalid']='命令選項 {} 無效，{}！'
@@ -8528,7 +8525,6 @@ function msg_pack_en() {
         ['start.runtimeEnv']='Runtime Env'
         ['start.dateTime']='System Time'
         ['end.moreInfo']='Script execution completed, visit our website for more tutorials'
-        ['end.sponsorAds']='[Sponsor Ads]'
         ['error.cmd.options.needConfirm']='Please confirm and re-enter'
         ['error.cmd.options.needSpecify']='Please specify {} after this option'
         ['error.cmd.options.invalid']='Command option {} is invalid, {}!'

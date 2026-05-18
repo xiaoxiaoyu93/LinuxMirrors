@@ -3,7 +3,6 @@ MESSAGE_CONTENTS=(
     ['start.runtimeEnv']='執行環境'
     ['start.dateTime']='系統時間'
     ['end.moreInfo']='腳本執行完畢，更多使用教學詳見官網'
-    ['end.sponsorAds']='【贊助商廣告】'
     ['error.cmd.options.needConfirm']='請確認後重新輸入'
     ['error.cmd.options.needSpecify']='請在該選項後指定{}'
     ['error.cmd.options.invalid']='命令選項 {} 無效，{}！'
