@@ -4,6 +4,7 @@ MESSAGE_CONTENTS=(
     ['start.dateTime']='系統時間'
     ['end.moreInfo']='腳本執行完畢，更多使用教學詳見官網'
     ['end.sponsorAds']='【贊助商廣告】'
+    ['dryrun.yourOptions']='你的選項：'
     ['error.cmd.options.needConfirm']='請確認後重新輸入'
     ['error.cmd.options.needSpecify']='請在該選項後指定{}'
     ['error.cmd.options.invalid']='命令選項 {} 無效，{}！'
@@ -105,6 +106,7 @@ MESSAGE_CONTENTS=(
   --only-epel                  僅更換 EPEL 軟體源模式                                                 無
   --ignore-backup-tips         忽略覆蓋備份提示                                                       無
   --print-diff                 是否列印原始文件修改前後差異                                           無
+  --dry-run                    結束選擇後不執行安裝操作，僅輸出無人值守參數                           無
   --pure-mode                  純淨模式，精簡列印內容                                                 無
   --help                       查看幫助選單                                                           無
 
