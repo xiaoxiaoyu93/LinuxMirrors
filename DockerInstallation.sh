@@ -195,9 +195,18 @@ function main() {
     run_start
     choose_mirrors
     if [[ "${ONLY_REGISTRY}" == "true" ]]; then
+        if [[ "${DRY_RUN}" == "true" ]]; then
+            print_dry_run_command
+            return
+        fi
         only_change_docker_registry_mirror_mode
     else
         choose_protocol
+        choose_close_firewall_option
+        if [[ "${DRY_RUN}" == "true" ]]; then
+            print_dry_run_command
+            return
+        fi
         close_firewall_service
         install_dependency_packages
         configure_docker_ce_mirror
@@ -371,6 +380,10 @@ function handle_command_options() {
                 command_error "$1" "$(msg "error.cmd.options.needIntranetSource")"
             fi
             ;;
+        ## 仅打印无人值守参数
+        --dry-run)
+            DRY_RUN="true"
+            ;;
         ## Locale
         --lang)
             if [ "$2" ]; then
@@ -434,6 +447,7 @@ function handle_command_options() {
     if [[ "${DESIGNATED_DOCKER_VERSION}" ]]; then
         INSTALL_LATESTED_DOCKER="false"
     fi
+    DRY_RUN="${DRY_RUN:-"false"}"
     PURE_MODE="${PURE_MODE:-"false"}"
 }
 
@@ -522,6 +536,58 @@ function run_end() {
     echo -e "\n\033[3;1mPowered by \033[34mLinuxMirrors\033[0m\n"
 }
 
+function print_dry_run_command() {
+    local -a options=()
+    local use_intranet_source="${USE_INTRANET_SOURCE:-"false"}"
+    local install_latest_docker="${INSTALL_LATESTED_DOCKER:-"true"}"
+    local close_firewall="${CLOSE_FIREWALL:-"false"}"
+    local source_registry="${SOURCE_REGISTRY:-"registry.hub.docker.com"}"
+
+    append_command_option() {
+        local option_name="$1"
+        local option_value="$2"
+        options+=("${option_name} $(printf '%q' "${option_value}")")
+    }
+
+    if [[ "${ONLY_REGISTRY}" == "true" ]]; then
+        options+=("--only-registry")
+    else
+        append_command_option "--source" "${SOURCE:-"download.docker.com"}"
+        append_command_option "--branch" "${SOURCE_BRANCH}"
+        if [[ "${SOURCE_BRANCH_VERSION}" ]]; then
+            append_command_option "--branch-version" "${SOURCE_BRANCH_VERSION}"
+        fi
+        if [[ "${SYSTEM_FACTIONS}" == "${SYSTEM_DEBIAN}" || "${SYSTEM_FACTIONS}" == "${SYSTEM_OPENKYLIN}" ]]; then
+            local docker_suite="${DEBIAN_CODENAME:-${SOURCE_BRANCH_CODENAME:-${SYSTEM_VERSION_CODENAME}}}"
+            if [[ "${docker_suite}" ]]; then
+                append_command_option "--codename" "${docker_suite}"
+            fi
+        fi
+        append_command_option "--protocol" "${WEB_PROTOCOL}"
+        append_command_option "--use-intranet-source" "${use_intranet_source}"
+        append_command_option "--install-latest" "${install_latest_docker}"
+        if [[ "${DESIGNATED_DOCKER_VERSION}" ]]; then
+            append_command_option "--designated-version" "${DESIGNATED_DOCKER_VERSION}"
+        fi
+        append_command_option "--close-firewall" "${close_firewall}"
+    fi
+    append_command_option "--source-registry" "${source_registry}"
+    options+=("--ignore-backup-tips")
+    if [[ "${PURE_MODE}" == "true" ]]; then
+        options+=("--pure-mode")
+    fi
+
+    echo -e "\n$(msg "dryrun.yourOptions")"
+    echo "bash <(curl -sSL https://linuxmirrors.cn/docker.sh) \\"
+    for ((i = 0; i < ${#options[@]}; i++)); do
+        if [[ "${i}" -lt $((${#options[@]} - 1)) ]]; then
+            echo "  ${options[i]} \\"
+        else
+            echo "  ${options[i]}"
+        fi
+    done
+}
+
 function output_error() {
     [ "$1" ] && echo -e "\n$ERROR $1\n"
     exit 1
@@ -552,6 +618,9 @@ function command_exists() {
 }
 
 function permission_judgment() {
+    if [[ "${DRY_RUN}" == "true" ]]; then
+        return
+    fi
     if [ $UID -ne 0 ]; then
         if command_exists sudo && [ -f "$0" ]; then
             exec sudo bash "$0" "${SCRIPT_ARGS[@]}"
@@ -1080,40 +1149,50 @@ function choose_protocol() {
     WEB_PROTOCOL="${WEB_PROTOCOL,,}"
 }
 
-## 关闭防火墙和SELinux
-function close_firewall_service() {
+function choose_close_firewall_option() {
+    FIREWALLD_IS_ACTIVE="false"
     if ! command_exists systemctl; then
         return
     fi
-    if [[ "$(systemctl is-active firewalld)" == "active" ]]; then
-        if [[ -z "${CLOSE_FIREWALL}" ]]; then
-            local ask_text="$(msg "interaction.firewall.close")?"
-            if [[ "${CAN_USE_ADVANCED_INTERACTIVE_SELECTION}" == "true" ]]; then
-                echo ''
-                interactive_select_boolean "${BOLD}${ask_text}${PLAIN}"
-                if [[ "${_SELECT_RESULT}" == "true" ]]; then
-                    CLOSE_FIREWALL="true"
-                fi
-            else
-                local CHOICE="$(echo -e "\n${BOLD}└─ ${ask_text} [Y/n] ${PLAIN}")"
-                read -rp "${CHOICE}" INPUT
-                [[ -z "${INPUT}" ]] && INPUT=Y
-                case "${INPUT}" in
-                [Yy] | [Yy][Ee][Ss])
-                    CLOSE_FIREWALL="true"
-                    ;;
-                [Nn] | [Nn][Oo]) ;;
-                *)
-                    input_error "$(msg "error.defaultBehavior.noClose")"
-                    ;;
-                esac
-            fi
+    if [[ "$(systemctl is-active firewalld 2>/dev/null)" != "active" ]]; then
+        return
+    fi
+    FIREWALLD_IS_ACTIVE="true"
+    if [[ -n "${CLOSE_FIREWALL}" ]]; then
+        return
+    fi
+    local ask_text="$(msg "interaction.firewall.close")?"
+    if [[ "${CAN_USE_ADVANCED_INTERACTIVE_SELECTION}" == "true" ]]; then
+        echo ''
+        interactive_select_boolean "${BOLD}${ask_text}${PLAIN}"
+        if [[ "${_SELECT_RESULT}" == "true" ]]; then
+            CLOSE_FIREWALL="true"
         fi
-        if [[ "${CLOSE_FIREWALL}" == "true" ]]; then
-            local SelinuxConfig=/etc/selinux/config
-            systemctl disable --now firewalld >/dev/null 2>&1
-            [ -s "${SelinuxConfig}" ] && sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" $SelinuxConfig && setenforce 0 >/dev/null 2>&1
-        fi
+    else
+        local CHOICE="$(echo -e "\n${BOLD}└─ ${ask_text} [Y/n] ${PLAIN}")"
+        read -rp "${CHOICE}" INPUT
+        [[ -z "${INPUT}" ]] && INPUT=Y
+        case "${INPUT}" in
+        [Yy] | [Yy][Ee][Ss])
+            CLOSE_FIREWALL="true"
+            ;;
+        [Nn] | [Nn][Oo]) ;;
+        *)
+            input_error "$(msg "error.defaultBehavior.noClose")"
+            ;;
+        esac
+    fi
+}
+
+## 关闭防火墙和SELinux
+function close_firewall_service() {
+    if [[ "${FIREWALLD_IS_ACTIVE}" != "true" ]]; then
+        return
+    fi
+    if [[ "${CLOSE_FIREWALL}" == "true" ]]; then
+        local SelinuxConfig=/etc/selinux/config
+        systemctl disable --now firewalld >/dev/null 2>&1
+        [ -s "${SelinuxConfig}" ] && sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" $SelinuxConfig && setenforce 0 >/dev/null 2>&1
     fi
 }
 
@@ -2321,6 +2400,7 @@ function msg_pack_zh_hans() {
         ['error.defaultBehavior.installLatest']='默认安装最新版本'
         ['error.defaultBehavior.noOverwrite']='默认不覆盖'
         ['error.defaultBehavior.noUseIntranetSource']='默认不使用内网地址'
+        ['dryrun.yourOptions']='你的选项：'
         ['warn.usedIntranetSource']='已切换至内网专用地址，仅限在特定环境下使用！'
         ['warn.needValidNumberIndex']='请输入有效的数字序号！'
         ['warn.needInputNumberIndex']='请输入数字序号！'
@@ -2377,6 +2457,7 @@ function msg_pack_zh_hans() {
   --install-latest          是否安装最新版本的 Docker Engine            true 或 false
   --close-firewall          是否关闭防火墙                              true 或 false
   --clean-screen            是否在运行前清除屏幕上的所有内容            true 或 false
+  --dry-run                 结束选择后不执行安装操作，仅输出无人值守参数    无
   --lang                    指定脚本使用的语言 ID                       语言
   --only-registry           仅更换镜像仓库模式                          无
   --ignore-backup-tips      忽略覆盖备份提示                            无
@@ -2476,6 +2557,7 @@ function msg_pack_zh_hant() {
         ['error.defaultBehavior.installLatest']='預設安裝最新版本'
         ['error.defaultBehavior.noOverwrite']='預設不覆寫'
         ['error.defaultBehavior.noUseIntranetSource']='預設不使用內網位址'
+        ['dryrun.yourOptions']='你的選項：'
         ['warn.usedIntranetSource']='已切換至內網專用位址，僅限在特定環境下使用！'
         ['warn.needValidNumberIndex']='請輸入有效的數字序號！'
         ['warn.needInputNumberIndex']='請輸入數字序號！'
@@ -2532,7 +2614,8 @@ function msg_pack_zh_hant() {
   --install-latest          是否安裝最新版本的 Docker Engine             true 或 false
   --close-firewall          是否關閉防火牆                               true 或 false
   --clean-screen            是否在運行前清除螢幕上的所有內容             true 或 false
-  --lang                    指定腳本輸出的語言                           语言
+  --dry-run                 結束選擇後不執行安裝操作，僅輸出無人值守參數    無
+  --lang                    指定腳本輸出的語言                           語言
   --only-registry           僅更換映像倉庫模式                           無
   --ignore-backup-tips      忽略覆蓋備份提示                             無
   --pure-mode               純淨模式，精簡列印內容                       無
@@ -2632,6 +2715,7 @@ function msg_pack_en() {
         ['error.defaultBehavior.installLatest']='Installing latest version by default'
         ['error.defaultBehavior.noOverwrite']='Not overwriting by default'
         ['error.defaultBehavior.noUseIntranetSource']='Not using intranet address by default'
+        ['dryrun.yourOptions']='Your options:'
         ['warn.usedIntranetSource']='Switched to intranet-only address, use only in specific environments!'
         ['warn.needValidNumberIndex']='Please enter a valid number index!'
         ['warn.needInputNumberIndex']='Please enter a number index!'
@@ -2688,6 +2772,7 @@ function msg_pack_en() {
   --install-latest          Whether to install the latest Docker Engine               true or false
   --close-firewall          Whether to disable the firewall                           true or false
   --clean-screen            Whether to clear the screen before running                true or false
+  --dry-run                 Skip installation after selections and only print unattended arguments  none
   --lang                    Specify the language of the script output                 language
   --only-registry           Only switch registry mirror mode                          none
   --ignore-backup-tips      Ignore backup overwrite prompt (do not backup)            none
