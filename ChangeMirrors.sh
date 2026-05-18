@@ -2084,7 +2084,7 @@ function select_upgrade_options() {
     case "${SYSTEM_JUDGMENT}" in
     "${SYSTEM_RHEL}" | "${SYSTEM_ORACLE}")
         UPGRADE_SOFTWARE="false"
-        CLEAN_CACHE="${CLEAN_CACHE:-"false"}"
+        CLEAN_CACHE="false"
         return
         ;;
     esac
@@ -2115,7 +2115,7 @@ function select_upgrade_options() {
         fi
     fi
     if [[ "${UPGRADE_SOFTWARE}" == "false" ]]; then
-        CLEAN_CACHE="${CLEAN_CACHE:-"false"}"
+        CLEAN_CACHE="false"
         return
     fi
     if [[ -z "${CLEAN_CACHE}" ]]; then
