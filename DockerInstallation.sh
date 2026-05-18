@@ -195,14 +195,20 @@ SCRIPT_INFO_ADDRESS=""
 function init_script_runtime_address() {
     local script_url="${SCRIPT_URL:-${LINUXMIRRORS_SCRIPT_URL}}"
     if [[ -z "${script_url}" ]]; then
-        local parent_cmdline="$(tr '\0' ' ' < /proc/${PPID}/cmdline 2>/dev/null)"
         local script_name_regex="${SCRIPT_FILE_NAME//./\\.}"
-        script_url="$(echo "${parent_cmdline}" | grep -Eo "https?://[^[:space:]\"')>]+/${script_name_regex}" | tail -n1)"
-        if [[ -z "${script_url}" ]]; then
-            local parent_pid="$(awk '{print $4}' /proc/${PPID}/stat 2>/dev/null)"
-            if [[ "${parent_pid}" =~ ^[0-9]+$ ]]; then
-                local grand_cmdline="$(tr '\0' ' ' < /proc/${parent_pid}/cmdline 2>/dev/null)"
-                script_url="$(echo "${grand_cmdline}" | grep -Eo "https?://[^[:space:]\"')>]+/${script_name_regex}" | tail -n1)"
+        local parent_pid=''
+        if [[ -r /proc/$$/status ]]; then
+            parent_pid="$(awk '/^PPid:/{print $2}' /proc/$$/status 2>/dev/null)"
+        fi
+        if [[ "${parent_pid}" =~ ^[0-9]+$ && -r "/proc/${parent_pid}/cmdline" ]]; then
+            local parent_cmdline="$(tr '\0' ' ' < /proc/${parent_pid}/cmdline 2>/dev/null)"
+            script_url="$(grep -Eo "https?://[^[:space:]\"')>]+/${script_name_regex}" <<< "${parent_cmdline}" | tail -n1)"
+            if [[ -z "${script_url}" ]]; then
+                local grandparent_pid="$(awk '/^PPid:/{print $2}' /proc/${parent_pid}/status 2>/dev/null)"
+                if [[ "${grandparent_pid}" =~ ^[0-9]+$ && -r "/proc/${grandparent_pid}/cmdline" ]]; then
+                    local grand_cmdline="$(tr '\0' ' ' < /proc/${grandparent_pid}/cmdline 2>/dev/null)"
+                    script_url="$(grep -Eo "https?://[^[:space:]\"')>]+/${script_name_regex}" <<< "${grand_cmdline}" | tail -n1)"
+                fi
             fi
         fi
     fi
@@ -215,8 +221,8 @@ function init_script_runtime_address() {
         SCRIPT_EXEC_COMMAND="bash <(curl -sSL ${script_url})"
         SCRIPT_INFO_ADDRESS="${script_url%/*}"
     else
-        SCRIPT_EXEC_COMMAND="bash <(curl -sSL <script-url>)"
-        SCRIPT_INFO_ADDRESS="<script-url>"
+        SCRIPT_EXEC_COMMAND="bash <(curl -sSL https://SCRIPT_URL_NOT_DETECTED)"
+        SCRIPT_INFO_ADDRESS="Unable to detect script source; set SCRIPT_URL or LINUXMIRRORS_SCRIPT_URL"
     fi
 }
 
