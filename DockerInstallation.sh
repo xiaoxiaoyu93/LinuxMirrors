@@ -669,7 +669,7 @@ function permission_judgment() {
                 exec sudo bash -c "${SCRIPT_EXEC_COMMAND}"
             fi
             if [ -f "$0" ]; then
-                change_cmd="sudo bash $0"
+                change_cmd="sudo bash $(printf '%q' "$0")"
             else
                 change_cmd="sudo ${SCRIPT_EXEC_COMMAND}"
             fi
